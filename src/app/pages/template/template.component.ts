@@ -43,7 +43,8 @@ export class TemplateComponent implements OnInit{
 
 
   guardar( formulario : NgForm){
-    console.log( formulario);
+
+    console.log( formulario.value);
 
     if(formulario.invalid){
       Object.values(formulario.controls) .forEach(control => {
