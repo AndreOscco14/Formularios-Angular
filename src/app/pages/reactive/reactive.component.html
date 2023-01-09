@@ -46,8 +46,8 @@
              type="email"
              placeholder="Correo electrónico"
              formControlName="correo"
-             [class.is-invalid]="correoNoValido" >
-             <small *ngIf="correoNoValido" class="text-danger">
+             [class.is-invalid]="CorreoNoValido" >
+             <small *ngIf="CorreoNoValido" class="text-danger">
               Ingrese correo
             </small>
     </div>
@@ -61,6 +61,7 @@
                    class="form-control"
                    placeholder="Distrito"
                    formControlName="distrito"
+                   [class.is-invalid]="DistritoNoValido" 
                    >
         </div>
         <div class="col">
@@ -68,6 +69,7 @@
                  class="form-control"
                  placeholder="Ciudad"
                  formControlName="ciudad"
+                 [class.is-invalid]="CiudadNoValida" 
                  >
        </div>
        </div>
@@ -88,7 +90,7 @@
 <hr>
 <pre>
   Estado del formulario: {{form.valid}}
-  <br>
+<br>
   Status: {{form.status}}
 </pre>
 <pre>

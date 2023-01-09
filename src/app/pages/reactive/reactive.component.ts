@@ -15,6 +15,7 @@ constructor(
   private fb: FormBuilder )
     {
     this.crearFormulario();
+    this.cargarDataAlFormulario();
     }
 
 
@@ -27,10 +28,17 @@ get apellidoNoValido(){
   return this.form.get('apellido')?.invalid && this.form.get('apellido')?.touched
 }
 
-get correoNoValido(){
+get CorreoNoValido(){
   return this.form.get('correo')?.invalid && this.form.get('correo')?.touched
 }
 
+get DistritoNoValido(){
+  return this.form.get('direccion.distrito')?.invalid && this.form.get('direccion.distrito')?.touched
+}
+
+get CiudadNoValida(){
+  return this.form.get('direccion.ciudad')?.invalid && this.form.get('direccion.ciudad')?.touched
+}
 
 
 
@@ -46,14 +54,38 @@ crearFormulario(){
   });
 }
 
+
+cargarDataAlFormulario(){
+   this.form.setValue({
+  //   nombre: 'Juan'
+  // })
+
+  nombre: 'Andre',
+  apellido: 'Perez',
+  correo: 'andre@gmail.com',
+  direccion: {
+    distrito: 'Madrid',
+    ciudad: 'Lima'
+  }
+   })
+}
+
+
 guardar(){
   console.log(this.form); 
   if(this.form.invalid){
-    Object.values(this.form.controls) .forEach(control => {
-      control.markAllAsTouched();
-    })
-    return;
-  }
-}
+   return Object.values(this.form.controls).forEach(control => {
 
+    if(control instanceof FormGroup) {
+      Object.values(control.controls).forEach(control => {
+        control.markAllAsTouched();
+      })
+    }else{
+      control.markAllAsTouched()
+         }
+      });
+    }
+      //POSTEO DE INFORMACIÓN
+      this.form.reset();
+  }
 }
