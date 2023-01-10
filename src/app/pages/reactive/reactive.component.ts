@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-reactive',
@@ -39,8 +39,9 @@ get DistritoNoValido(){
 get CiudadNoValida(){
   return this.form.get('direccion.ciudad')?.invalid && this.form.get('direccion.ciudad')?.touched
 }
-
-
+get pasatiempos(){
+  return this.form.get('pasaTiempos') as FormArray
+}
 
 crearFormulario(){
   this.form = this.fb.group({
@@ -49,14 +50,16 @@ crearFormulario(){
     correo:   ['', Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")],
     direccion: this.fb.group({
       distrito: ['', Validators.required],
-      ciudad: ['', Validators.required]
-    })
+      ciudad: ['', Validators.required],
+    }),
+   pasatiempos: this.fb.array([])
   });
 }
 
 
+
 cargarDataAlFormulario(){
-   this.form.setValue({
+   this.form.setValue({ 
   //   nombre: 'Juan'
   // })
 
@@ -70,6 +73,13 @@ cargarDataAlFormulario(){
    })
 }
 
+agregarPasatiempo(){
+  this.pasatiempos.push( this.fb.control(''))
+}
+
+borrarPasatiempo(i:number){
+  this.pasatiempos.removeAt(i)
+}
 
 guardar(){
   console.log(this.form); 
